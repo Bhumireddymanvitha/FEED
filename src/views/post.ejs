@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" /> -->
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+  </head>
+  <style>
+    body {
+      background: #f8f9fa;
+    }
+    .image-upload>input{
+      display: none;
+    }
+  </style>
+
+  <body>
+    <%- include('navbar1')%>
+    <main class="container">
+      <div class="bg-light p-ll rounded">
+        <section>
+          <div class="container">
+            <div
+              class="
+                card
+                border
+                rounded-3
+                up-hover
+                p-6
+                mb-4
+                d-grid
+                gap-2
+                col-6
+                mx-auto
+              "
+              style="width: 38rem"
+            >
+              <div class="row">
+                <div class="col-md-6 offset-md-3 mt-5">
+                  <h1 style="color: chocolate">Create Post...</h1>
+                  <form
+                    action="/createpost"
+                    method="post"
+                    enctype="multipart/form-data"
+                  >
+                    <div class="form-group">
+                      <label
+                        style="color: black; font-weight: bold"
+                        for="exampleInputName"
+                        >Title:</label
+                      >
+                      <input
+                        type="text"
+                        name="title"
+                        class="form-control"
+                        placeholder="Enter your caption.."
+                        required="required"
+                      />
+                    </div>
+
+
+                    <div class="image-upload">
+                      <label class="mr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                          <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                          <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                        </svg>
+                        <input type="file" name="image" accept="image/*" style="display: none;"/>
+                      </label>
+                      
+                      
+                    </div>
+
+                    <hr />
+
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                      <button
+                        type="submit"
+                        style="margin-bottom: 10px"
+                        class="btn btn-primary"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

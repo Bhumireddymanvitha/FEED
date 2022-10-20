@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignUp..</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"
+    />
+  </head>
+  <style>
+    body {
+      background: linear-gradient(
+        45deg,
+        rgba(66, 183, 245, 0.8) 0%,
+        rgba(66, 245, 189, 0.4) 100%
+      );
+    }
+  </style>
+
+  <body>
+    <h1
+      style="
+        text-align: center;
+        font-weight: bold;
+        color: #4285f4;
+        font-size: xx-large !important;
+        padding: 3%;
+      "
+    >
+      FEED APP!!
+    </h1>
+
+    <div class="form">
+      <div class="form-panel one">
+        <div class="form-header">
+          <h1>Register Account</h1>
+        </div>
+        <div class="form-content">
+          <form action="/signUp" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="username">Username:</label>
+              <input type="text" id="name" name="name" required="required" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address:</label>
+              <input type="email" id="email" name="email" required="required" />
+            </div>
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                required="required"
+              />
+            </div>
+            <div class="form-group">
+              <label for="DOB">DOB:</label>
+              <input type="date" id="dob" name="dob" required="required" />
+            </div>
+
+            <div class="form-group">
+              <label>Upload Image:</label>
+              <input type="file" id="file" name="pic" required="required" />
+            </div>
+            <%if(message.length!=0) {%>
+            <div class="alert alert-danger"><%= message %></div>
+            <%}%>
+
+            <div class="form-group">
+              <button type="submit">Register</button>
+            </div>
+          </form>
+        </div>
+        <h5>
+          <a href="/signIn">Already have an account ?</a>
+        </h5>
+      </div>
+    </div>
+  </body>
+</html>
