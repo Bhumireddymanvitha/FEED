@@ -99,13 +99,14 @@ html.wf-active .fir-image-figure .fig-author-figure-title {
 
 </style>
 <body>
+  <%- include('navbar')%>
   
       <section class="main">
         <div class="wrapper">
           
           <div class="left-col">
             
-            <%- include('navbar')%>
+          
     <%for(var i=0;i<results.length;i++) { %>
             <%if(results[i].image==null){%>
 
@@ -376,7 +377,7 @@ html.wf-active .fir-image-figure .fig-author-figure-title {
                       <%break%>
                       <% } %>
                     <% } %>
-                  <% } else{ %> 
+                  <% } else { %> 
                     <form id="like" method="post">
                       <button id="like" type="submit" formaction="/likes/<%=results[i].postid%>/true">
                       
