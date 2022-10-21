@@ -268,7 +268,7 @@ async function getHome(req, res) {
 
   Promise.all([firstQuery, secondQuery, thirdQuery, fourthQuery,fifthQuery,sixthQuery]).then(
     (firstResult) => {
-      console.log(new Date(firstResult[0][6].DOB));
+      // console.log(new Date(firstResult[0][6].DOB));
       res.render("home", {
         results: firstResult[0],
         comment: firstResult[1],
