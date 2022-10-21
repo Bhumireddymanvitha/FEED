@@ -6,7 +6,7 @@ const upload = require("../middleware/multer");
 
 //signauth
 router.get("/", (req, res) => {
-  res.render("demo");
+  res.redirect('/signup');
 });
 router.get("/signup", ViewController.getSignup);
 router.post("/signUp", upload.single("pic"), ViewController.signUp);
