@@ -232,7 +232,7 @@ async function getHome(req, res) {
       req.user.user_id,
       (err, results) => {
         if (err) {
-          reject(err);
+          failure(err);
         } else {
           const retVal = results;
           success(retVal);
@@ -245,7 +245,7 @@ async function getHome(req, res) {
       "select u.name,u.pic,u.id,l.postid,l.likes from users u inner join likes l where u.id=l.id and l.likes=1",
       (err, results) => {
         if (err) {
-          reject(err);
+          failure(err);
         } else {
           const retVal = results;
           success(retVal);
@@ -258,7 +258,20 @@ async function getHome(req, res) {
       "select name,id,pic,DOB from users",
       (err, results) => {
         if (err) {
-          reject(err);
+          failure(err);
+        } else {
+          const retVal = results;
+          success(retVal);
+        }
+      }
+    );
+  });
+  const seventhQuery = new Promise((success, failure) => {
+    con.query(
+      "select u.name,u.pic,u.id,n.notificationid,n.postuserid,n.viewnotification,n.likeduserid,n.postid from users u inner join notification n where n.likeduserid=u.id and n.postuserid=? order by n.datetime desc",req.user.user_id,
+      (err, results) => {
+        if (err) {
+          failure(err);
         } else {
           const retVal = results;
           success(retVal);
@@ -267,9 +280,9 @@ async function getHome(req, res) {
     );
   });
 
-  Promise.all([firstQuery, secondQuery, thirdQuery, fourthQuery,fifthQuery,sixthQuery]).then(
+  Promise.all([firstQuery, secondQuery, thirdQuery, fourthQuery,fifthQuery,sixthQuery,seventhQuery]).then(
     (firstResult) => {
-       console.log(firstResult);
+       console.log(firstResult[6]);
       res.render("home", {
         results: firstResult[0],
         comment: firstResult[1],
@@ -277,8 +290,10 @@ async function getHome(req, res) {
         likes: firstResult[3],
         likedusers: firstResult[4],
         dob: firstResult[5],
+        notifications: firstResult[6],
         username: req.user.user_name,
         id: req.user.user_id,
+
       });
     }
   );
