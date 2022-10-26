@@ -6,7 +6,7 @@ const upload = require("../middleware/multer");
 
 //signauth
 router.get("/", (req, res) => {
-  res.redirect('/signup');
+  res.redirect('/signin');
 });
 router.get("/signup", ViewController.getSignup);
 router.post("/signUp", upload.single("pic"), ViewController.signUp);
@@ -41,5 +41,7 @@ router.post("/post/update/:id", auth, ViewController.updatePost);
 router.get("/logout", auth, ViewController.logout);
 // router.get('/getlikes',ViewController.getlikes);
 router.post("/likes/:postid/:count", auth, ViewController.likepost);
+router.get("/notification",auth,ViewController.getnotification);
+router.get("/notificationdelete/:notificationid",auth,ViewController.deletenotification)
 
 module.exports = router;

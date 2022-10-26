@@ -8,6 +8,7 @@ const cloudinary = require("../middleware/cloudinary");
 const { v1: uuidv1 } = require("uuid");
 const { Console } = require("console");
 const { request } = require("http");
+const { json } = require("body-parser");
 
 const con = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -441,14 +442,28 @@ function mypost(req, res) {
       }
     );
   });
-
-  Promise.all([firstQuery, thirdQuery, fourthQuery]).then((firstResult) => {
-    console.log(firstResult[0]);
+  
+  const fifthQuery = new Promise((success, failure) => {
+    con.query(
+      "select u.name,u.pic,u.id,l.postid,l.likes from users u inner join likes l where u.id=l.id and l.likes=1",
+      (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          const retVal = results;
+          success(retVal);
+        }
+      }
+    );
+  });
+  Promise.all([firstQuery, thirdQuery, fourthQuery,fifthQuery]).then((firstResult) => {
+     console.log(firstResult[3]);
     res.render("mypost", {
       results: firstResult[0],
 
       count: firstResult[1],
       likes: firstResult[2],
+      likedusers: firstResult[3],
       id,
     });
   });
@@ -491,14 +506,28 @@ function getpostbyid(req, res) {
       }
     );
   });
+  const fifthQuery = new Promise((success, failure) => {
+    con.query(
+      "select u.name,u.pic,u.id,l.postid,l.likes from users u inner join likes l where u.id=l.id and l.likes=1",
+      (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          const retVal = results;
+          success(retVal);
+        }
+      }
+    );
+  });
 
-  Promise.all([firstQuery, thirdQuery, fourthQuery]).then((firstResult) => {
+  Promise.all([firstQuery, thirdQuery, fourthQuery,fifthQuery]).then((firstResult) => {
     console.log(firstResult[0]);
     res.render("postbyid", {
       results: firstResult[0],
       postid,
       count: firstResult[1],
       likes: firstResult[2],
+      likedusers: firstResult[3],
       id,
     });
   });
@@ -621,9 +650,25 @@ function likepost(req, res) {
           [postid, userid, count],
           (err, results) => {
             if (err) throw err;
-            res.status(204).send();
+            // res.status(204).send();
           }
         );
+        con.query("SELECT id from post where postid=?",postid,(err,results)=>{
+          if (err) throw err;
+          if(results !=0 ){
+            con.query("INSERT into notification (notificationid,postuserid,viewnotification,likeduserid,postid) values(?,?,?,?,?)",
+        [uuidv1(),results[0].id,true,req.user.user_id,postid],
+        (err,results)=>
+        {
+          if (err) throw err;
+          res.status(204).send();
+        }
+
+        )
+
+          }
+        })
+        
 
       } else {
         con.query(
@@ -640,7 +685,22 @@ function likepost(req, res) {
   );
 }
 
+function getnotification(req,res){
+  con.query('select u.name,u.pic,u.id,n.notificationid,n.postuserid,n.viewnotification,n.likeduserid,n.postid from users u inner join notification n where n.likeduserid=u.id  order by n.datetime desc',req.user.user_id,(err,results)=>{
+    res.render('notification',{results,userId:req.user.user_id});
 
+
+  })
+
+}
+function deletenotification(req, res) {
+  var notificationid = req.params.notificationid;
+  con.query('delete from notification where notificationid=?',notificationid, (err, results) => {
+    if (err) throw err;
+  });
+  
+  res.redirect("/notification");
+}
 
 module.exports = {
   getSignin,
@@ -668,4 +728,6 @@ module.exports = {
   newPass,
   likepost,
   getpostbyid,
+  getnotification,
+  deletenotification
 };
