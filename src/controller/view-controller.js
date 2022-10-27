@@ -550,7 +550,7 @@ function getpostbyid(req, res) {
 
 function editPost(req, res) {
   var id = req.params.postid;
-  console.log("test");
+  
   con.query(
     "SELECT title,image from post where postid = ?",
     id,

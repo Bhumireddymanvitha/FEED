@@ -77,15 +77,10 @@ html.wf-active .fir-image-figure .fig-author-figure-title {
   font-size: 16px;
 
 }
-
-
-
 .fir-imageover {
   position: relative;
   display: flex;
 }
-
-
 
 .notifications__item__avatar {
   width: 75px;
@@ -114,6 +109,7 @@ html.wf-active .fir-image-figure .fig-author-figure-title {
 hr{
   border: 0.5px solid #d9d9d9;
 }
+
 </style>
 <body>
   <%- include('navbar')%>
@@ -600,7 +596,7 @@ hr{
             
           <div class="right-col">
             <div class="post1" style="position: fixed;">
-              <h1 style="color: palevioletred; font-family: fantasy;font-size: x-large;margin: 5px;text-align: center;">Birthdays!!</h1>
+              <h1 style="color: black; padding-top: 10px;font-size: x-large;margin: 5px;text-align: center;">Birthdays</h1><hr>
               <%for(var m=0;m<dob.length;m++) { %>
                 <%if(new Date(dob[m].DOB).toDateString().slice(3,11)==new Date().toDateString().slice(3,11)){%>
                   <div id="gradient"></div>
@@ -614,7 +610,7 @@ hr{
                 </a>
                 <a href="/profile/<%=dob[m].id%>">
                 <figcaption>
-                  <div class="fig-author-figure-title" style="color: palevioletred; font-weight: bold;"><%=dob[m].name%></div>
+                  <div class="fig-author-figure-title" style="color: black; font-weight: bold;"><%=dob[m].name%></div>
                   <div class="fig-author-figure-title" style="color: rgba(0, 0, 0, 0.5) ; font-weight: bold;"><%=new Date().getUTCFullYear()-new Date(dob[m].DOB).getUTCFullYear()%> years</div>
                   
                 
@@ -628,7 +624,7 @@ hr{
               <%}%>
               <hr>
               <div>
-                <h1 style="color: palevioletred;font-family: fantasy; font-size: x-large; text-align:center; margin: 10px;">Upcoming birthdays!!</h1>
+                <h1 style="color: black; padding-top: 10px; font-size: x-large; text-align:center; margin: 10px;">Upcoming birthdays</h1><hr>
                 <%var day=new Date()%>
                 <%var tomorrow=new Date(day)%>
                 <% tomorrow.setDate(tomorrow.getDate()+1)%>
@@ -645,7 +641,7 @@ hr{
                   </a>
                   <a href="/profile/<%=results[n].id%>">
                   <figcaption>
-                    <div class="fig-author-figure-title" style="color: palevioletred; font-weight: bold;"><%=dob[n].name%></div>
+                    <div class="fig-author-figure-title" style="color: black; font-weight: bold;"><%=dob[n].name%></div>
                     <div class="fig-author-figure-title" style="color: rgba(0, 0, 0, 0.5) ; font-weight: bold;"><%=new Date().getUTCFullYear()-new Date(dob[n].DOB).getUTCFullYear()%> years</div>
                     
                   
@@ -660,40 +656,11 @@ hr{
                 <%}%>
                 
               </div>
-              <!-- <div class="post1" style="position: fixed;">
-
-                <h1 style="color: palevioletred; font-family: fantasy;font-size: x-large;margin: 5px;text-align: center;">Notifications!!</h1>
-                
-                  <%if(notifications.length!=0){%>
-                  <%for(let i=0;i<notifications.length;i++) {%>
-                    <%if(notifications[i].postuserid==id){%> 
-                      <div class="notifications__item">
-                        <div class="notifications__item__avatar">
-                          <img class="fir-author-image fir-clickcircle" src="http://res.cloudinary.com/dhyspabbw/image/upload/v1664453612/<%=notifications[i].pic%>" width="100%" />
-                        </div>
-                  
-                        <div class="notifications__item__content">
-                          
-                          <span class="notifications__item__title"><a style="font-size:large; font-weight: bold;" href="/profile/<%=notifications[i].id%>"><%=notifications[i].name%></a><span style="color: slategray";> liked your </span><a  style="color:lightseagreen; font-size: large;" href="/post/<%=notifications[i].postid%>">post!.</a></span>
-                         
-                        </div>
-                  
-                      
-                      <div class="notifications__item__option delete js-option">
-                        <a href="/notificationdelete/<%=notifications[i].notificationid%>">
-                        <i class="fas fa-trash"></i></a>
-                      </div>
-                    </div>
-
-    
-                      <%}%>
-                      <%}%>
-                      <%}%>
             
-          </div> -->
+              
           <div class="right-col">
             <div class="post1" style="position: fixed;">
-              <h1 style="color: palevioletred; font-family: fantasy;font-size: x-large;margin: 5px;text-align: center;">Notifications!!</h1><hr>
+             <a href="/notification"><h1 style="color: black; padding-top: 10px;font-size: x-large;margin: 5px;text-align: center;">Notifications</h1><hr></a>
               <%if(notifications.length!=0){%>
                 <%for(let i=0;i<notifications.length;i++) {%>
                   <%if(notifications[i].postuserid==id){%> 
@@ -708,31 +675,24 @@ hr{
                 </a>
                 <div class="notifications__item__content">
                           
-                  <span class="notifications__item__title"><a style="font-weight: bold; padding: 5px; text-align: center;" href="/profile/<%=notifications[i].id%>"><%=notifications[i].name%></a><span style="color: slategray";>liked your </span><a  style="color:lightseagreen; font-size: large;" href="/post/<%=notifications[i].postid%>">post!.</a></span>
+                  <span class="notifications__item__title"><a style="font-weight: bold; padding: 5px; color: black; " href="/profile/<%=notifications[i].id%>"><%=notifications[i].name%></a><span style="color: black";>liked your </span><a  style="color:black; font-size: large;" href="/post/<%=notifications[i].postid%>">post!</a></span>
                  
                 </div>
-          
-              
               <div class="notifications__item__option delete js-option">
                 <a href="/notificationdelete/<%=notifications[i].notificationid%>">
                 <i class="fas fa-trash"></i></a>
               </div>
-                
                 <hr>
-
               </figure>
-              <hr style="color: pink;">
+              <hr>
               </div>
               
               <%}%>
               <%}%>
               <%}%>
-              
-
-
-
-
           </div>
+        </div>
+        </div>
         </div>
     
       </section>
